@@ -1,18 +1,12 @@
 package servicename.configurations.kafka;
 
-
-
-import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.ByteArraySerializer;
 import org.apache.kafka.common.serialization.StringSerializer;
-import ru.tinkoff.gatling.kafka.javaapi.protocol.KafkaProtocolBuilderNew;
-import scala.concurrent.duration.FiniteDuration;
-
+import org.apache.kafka.clients.producer.ProducerConfig;
+import java.time.Duration;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
+import static ru.tinkoff.gatling.kafka.javaapi.KafkaDsl.kafka;
 import static ru.tinkoff.gatling.javaapi.SimulationConfig.getStringParam;
-import static ru.tinkoff.gatling.kafka.Predef.kafka;
 
 /**
  * <h2>Класс настроек подключения к Kafka</h2>
@@ -41,7 +35,8 @@ public class KafkaClientConfiguration {
         return kafka().requestReply()
                 .producerSettings(
                         //Про ProducerConfig https://docs.confluent.io/platform/current/installation/configuration/producer-configs.html
-                        // Здесь возникает ошибка java: incompatible types: no instance(s) of type variable(s) K,V exist so that java.util.Map<K,V> conforms to scala.collection.immutable.Map<java.lang.String,java.lang.Object>
+                        // Eдесь возникает ошибка java: incompatible types: no instance(s) of type variable(s) K,V exist so that java.util.Map<K,V> conforms to scala.collection.immutable.Map<java.lang.String,java.lang.Object>
+                        // То проверьте, что все импорты джавовые и из javaapi
                         Map.of(
                             ProducerConfig.ACKS_CONFIG, "1",
                             // Указываем kafka brokers
@@ -55,6 +50,6 @@ public class KafkaClientConfiguration {
                         Map.of(
                                 ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrap
                         )
-                ).timeout(FiniteDuration.apply(10L, TimeUnit.SECONDS));
+                ).timeout(Duration.ofSeconds(10));
     }
 }
