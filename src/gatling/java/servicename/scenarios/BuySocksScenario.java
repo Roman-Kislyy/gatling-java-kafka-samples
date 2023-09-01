@@ -1,13 +1,9 @@
 package servicename.scenarios;
 
-import io.gatling.javaapi.core.FeederBuilder;
 import io.gatling.javaapi.core.ScenarioBuilder;
 import servicename.actions.CreateOrder;
 
-import java.util.Random;
-
-import static io.gatling.javaapi.core.CoreDsl.*;
-import static io.gatling.javaapi.jms.JmsDsl.jms;
+import static io.gatling.javaapi.core.CoreDsl.scenario;
 
 /**
  * <h2>Сценарий покупки носков в воображаемом магазине товаров.</h2>

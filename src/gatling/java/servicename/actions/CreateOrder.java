@@ -1,13 +1,15 @@
 package servicename.actions;
 
+import helpers.ResourceHelper;
 import helpers.VarsHelper;
-import io.gatling.javaapi.core.Body;
 import io.gatling.javaapi.core.ChainBuilder;
 import org.apache.kafka.common.header.Headers;
 import org.apache.kafka.common.header.internals.RecordHeaders;
+import io.gatling.javaapi.core.Session;
 import static io.gatling.javaapi.core.CoreDsl.*;
 import static ru.tinkoff.gatling.kafka.javaapi.KafkaDsl.kafka;
-
+import ru.tinkoff.gatling.templates.HttpBodyExt.*;
+import ru.tinkoff.gatling.templates.Syntax.*;
 /**
  * <h2>Только для примера. Класс создания заказов.</h2>
  * <p>
@@ -35,10 +37,18 @@ public class CreateOrder {
                     .requestTopic("gatling_order_rq")
                     .replyTopic("gatling_order_rq") // Указан одинаковый топик для запросов и ответов только для демо. Потому что нам никто не отвечает
                             //.replyTopic("gatling_order_rs")
-                    .send("key",                                                        // Ключ сообщения
-                            ElFileBody("json/CreateOrder/requests/buyRedSocks.json").toString(),// Тело сообщения
-                            headers,                                                        // Заголовки
-                            String.class, String.class)                            // Типы данных для ключа и тела
+                    .send("key",                                                                                // Ключ сообщения
+                                    "{\n" +
+                                    "  \"order_id\": \"#{randomUuid()}\",\n" +
+                                    "  \"item_name\": \"Red Socks\",\n" +
+                                    "  \"quantity\": #{count},\n" +
+                                    "  \"color\": \"Red\",\n" +
+                                    "  \"total_price\": 20.00,\n" +
+                                    "  \"success\": true\n" +
+                                    "}",
+                           //ResourceHelper.gatlingResourcePath("json/CreateOrder/requests/buyRedSocks.json"),      // Тело сообщения
+                            headers,                                                                                // Заголовки
+                            String.class, String.class)                                                             // Типы данных для ключа и тела
                     .check(jsonPath("$.success").exists())
             );
         return chain;

@@ -34,7 +34,7 @@ public class KafkaClientConfiguration {
     public ru.tinkoff.gatling.kafka.javaapi.protocol.KafkaProtocolBuilderNew protocol(){
         return kafka().requestReply()
                 .producerSettings(
-                        //Про ProducerConfig https://docs.confluent.io/platform/current/installation/configuration/producer-configs.html
+                        // Про ProducerConfig https://docs.confluent.io/platform/current/installation/configuration/producer-configs.html
                         // Eдесь возникает ошибка java: incompatible types: no instance(s) of type variable(s) K,V exist so that java.util.Map<K,V> conforms to scala.collection.immutable.Map<java.lang.String,java.lang.Object>
                         // То проверьте, что все импорты джавовые и из javaapi
                         Map.of(

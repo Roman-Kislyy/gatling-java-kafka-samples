@@ -32,6 +32,6 @@ public class BuyProductsSimulation extends Simulation {
 //                        rampUsersPerSec(0).to(5).during(10),
 //                        constantUsersPerSec(5).during(60))
         ).protocols(new KafkaClientConfiguration().protocol()
-        ).assertions(forAll().responseTime().percentile(90).lte(5000));
+        ).assertions(forAll().responseTime().percentile(90).lte(5000)).maxDuration(90);
     }
 }

@@ -19,7 +19,7 @@ public  class ResourceHelper {
      * @author  Roman Kislyy
      * @since 2023-08-11
      */
-    public static  String gatlingResourcePath(String shortPath) throws IOException {
+    public static  String gatlingResourcePath(String shortPath)  {
         File file = new File(shortPath);
         String path = "";
 
@@ -29,7 +29,11 @@ public  class ResourceHelper {
             path = classLoader.getResource(shortPath).getPath();
             log.debug("Absolutely resource path: {}", path);
         }else {
-            path = file.getCanonicalPath();
+            try {
+                path = file.getCanonicalPath();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             log.debug("Absolutely path presented: {}", path);
         }
         return path;
