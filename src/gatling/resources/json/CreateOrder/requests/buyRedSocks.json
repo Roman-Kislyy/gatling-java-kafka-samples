@@ -1,0 +1,8 @@
+{
+  "order_id": "#{randomUuid()}",
+  "item_name": "Red Socks",
+  "quantity": #{count},
+  "color": "Red",
+  "total_price": 20.00,
+  "success": true
+}
