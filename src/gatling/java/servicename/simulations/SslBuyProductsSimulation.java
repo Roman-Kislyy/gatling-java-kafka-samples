@@ -1,13 +1,12 @@
 package servicename.simulations;
 
 import io.gatling.javaapi.core.Simulation;
-import servicename.configurations.kafka.KafkaClientConfiguration;
+import servicename.configurations.kafka.KafkaSslClientConfiguration;
 import servicename.scenarios.BuySocksScenario;
-
 import static io.gatling.javaapi.core.CoreDsl.*;
 
 /**
- * <h2>Тест стабильности, демонстрация симуляции с несколькими сценариями</h2>
+ * <h2>Тест стабильности, протокол SSL, для демонстрация симуляции с несколькими сценариями</h2>
  * <p>
  * Тут можно рассказать, как собирать профиль нагрузки. В чем особенность теста.
  * <p>
@@ -22,7 +21,7 @@ import static io.gatling.javaapi.core.CoreDsl.*;
  * @author  Roman Kislyy
  * @since 2023-08-11
  */
-public class BuyProductsSimulation extends Simulation {
+public class SslBuyProductsSimulation extends Simulation {
     {
         setUp(
                 BuySocksScenario.scn.injectOpen(
@@ -32,7 +31,7 @@ public class BuyProductsSimulation extends Simulation {
 //               ,BuyHatsScenario.scn.injectOpen(
 //                        rampUsersPerSec(0).to(5).during(10),
 //                        constantUsersPerSec(5).during(60))
-        ).protocols(new KafkaClientConfiguration().protocol()
+        ).protocols(new KafkaSslClientConfiguration().protocol()
         ).assertions(forAll().responseTime().percentile(90).lte(5000),
                      forAll().failedRequests().percent().lte(5.0)
         ).maxDuration(90);

@@ -1,0 +1,1 @@
+docker-compose -f kafka-container-with-ssl.yml up -d
