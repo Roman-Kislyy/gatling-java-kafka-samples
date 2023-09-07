@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"helpers"},{"l":"helpers.ssl"},{"l":"servicename.actions"},{"l":"servicename.configurations.kafka"},{"l":"servicename.scenarios"},{"l":"servicename.simulations"}];updateSearchResults();

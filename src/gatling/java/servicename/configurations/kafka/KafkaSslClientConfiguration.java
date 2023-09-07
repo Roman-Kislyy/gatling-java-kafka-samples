@@ -49,8 +49,6 @@ public class KafkaSslClientConfiguration {
      */
     public ru.tinkoff.gatling.kafka.javaapi.protocol.KafkaProtocolBuilderNew protocol(){
 
-//        String keystoreAbsolutePath = "d:\\load\\git\\gatling-java-kafka-samples\\src\\gatling\\resources\\" + (keystore);
-//        String truststoreAbsolutePath = "d:\\load\\git\\gatling-java-kafka-samples\\src\\gatling\\resources\\" + (truststore);
         String keystoreAbsolutePath = gatlingResourcePath(keystore);
         String truststoreAbsolutePath = gatlingResourcePath(truststore);
         // Проверяем доступность сертификатов и пароли к ним

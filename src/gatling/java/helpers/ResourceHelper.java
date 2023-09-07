@@ -22,19 +22,20 @@ public  class ResourceHelper {
     public static  String gatlingResourcePath(String shortPath)  {
         File file = new File(shortPath);
         String path = "";
-
-        if (!file.isAbsolute()){
-            log.debug("Short resource path: {}", shortPath);
-//            path = this.getClass().getClassLoader().getResource(shortPath).getPath();
-            path = classLoader.getResource(shortPath).getPath();
-            log.debug("Absolutely resource path: {}", path);
-        }else {
-            try {
+        try {
+            if (!file.isAbsolute()){
+                log.debug("Short resource path: {}", shortPath);
+                // path = this.getClass().getClassLoader().getResource(shortPath).getPath();
+                path = classLoader.getResource(shortPath).getPath();
+                // Полученную строку необходимо преобразовать к canonical path
+                path = new File(path).getCanonicalPath();
+                log.debug("Absolutely resource path: {}", path);
+            }else {
                 path = file.getCanonicalPath();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+                log.debug("Absolutely path presented: {}", path);
             }
-            log.debug("Absolutely path presented: {}", path);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
         return path;
     }
