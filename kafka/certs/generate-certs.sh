@@ -1,5 +1,4 @@
 #!/bin/bash -ex
-
 PASSWORD=changeit
 SERVER_KEYSTORE=server.keystore.jks
 SERVER_TRUSTSTORE=server.truststore.jks
@@ -8,7 +7,6 @@ CLIENT_TRUSTSTORE=client.truststore.jks
 VALIDITY=10365
 USER=myuser
 BROKER_HOST=kafka-broker
-
 # 1 Key
 keytool -v -genkey -dname "CN=${BROKER_HOST}, \
 	OU=${USER}, o=Load, L=Moscow, C=RU" \
